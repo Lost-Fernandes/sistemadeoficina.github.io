@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oficina de Veículos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Veículos</h1>
+        <form id="vehicleForm">
+            <input type="text" id="model" placeholder="Modelo do Veículo" required>
+            <input type="text" id="plate" placeholder="Placa do Veículo" required>
+            <input type="date" id="lastService" required>
+            <button type="submit">Cadastrar Veículo</button>
+        </form>
+
+        <h2>Próximos Serviços</h2>
+        <ul id="upcomingServices"></ul>
+
+        <h1>Registrar Manutenção</h1>
+        <form id="maintenanceForm">
+            <input type="text" id="maintenancePlate" placeholder="Placa do Veículo" required>
+            <input type="date" id="maintenanceDate" required>
+            <input type="text" id="maintenanceDescription" placeholder="Descrição da Manutenção" required>
+            <button type="submit">Registrar Manutenção</button>
+        </form>
+
+        <h2>Histórico de Manutenção</h2>
+        <ul id="maintenanceHistory"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
