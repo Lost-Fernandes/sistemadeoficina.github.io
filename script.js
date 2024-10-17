@@ -32,7 +32,6 @@ function checkForUpcomingService(vehicle) {
 
 // Função para enviar notificação via WhatsApp
 function sendWhatsAppNotification(vehicle) {
-    // Simulação de envio de WhatsApp (substitua com seu servidor real)
     console.log(`Notificação enviada para ${vehicle.model} (${vehicle.plate})`);
 }
 
@@ -43,15 +42,28 @@ function displayUpcomingServices() {
 
     for (let i = 0; i < localStorage.length; i++) {
         const plate = localStorage.key(i);
-        const vehicle = JSON.parse(localStorage.getItem(plate));
-        
-        if (vehicle) {
-            const nextServiceDate = new Date(vehicle.lastService);
-            nextServiceDate.setMonth(nextServiceDate.getMonth() + 6);
+        if (!plate.endsWith('_history')) {
+            const vehicle = JSON.parse(localStorage.getItem(plate));
+            
+            if (vehicle) {
+                const nextServiceDate = new Date(vehicle.lastService);
+                nextServiceDate.setMonth(nextServiceDate.getMonth() + 6);
 
-            const listItem = document.createElement('li');
-            listItem.textContent = `${vehicle.model} (${vehicle.plate}) - Próxima revisão: ${nextServiceDate.toDateString()}`;
-            upcomingServices.appendChild(listItem);
+                const listItem = document.createElement('li');
+                listItem.textContent = `${vehicle.model} (${vehicle.plate}) - Próxima revisão: ${nextServiceDate.toLocaleDateString()}`;
+                
+                // Adiciona botão de deletar
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Deletar';
+                deleteButton.onclick = function () {
+                    localStorage.removeItem(plate);
+                    localStorage.removeItem(plate + '_history'); // Deleta o histórico de manutenção também
+                    displayUpcomingServices();
+                };
+
+                listItem.appendChild(deleteButton);
+                upcomingServices.appendChild(listItem);
+            }
         }
     }
 }
@@ -90,7 +102,7 @@ function displayMaintenanceHistory(plate) {
 
 // Atualiza o histórico de manutenção ao carregar a página
 document.addEventListener('DOMContentLoaded', function () {
-    displayUpcomingServices(); // Mantém a funcionalidade de exibir serviços futuros
+    displayUpcomingServices();
     const plates = Object.keys(localStorage).filter(key => !key.endsWith('_history'));
     plates.forEach(plate => displayMaintenanceHistory(plate));
 });
