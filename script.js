@@ -47,7 +47,7 @@ function displayUpcomingServices() {
             
             if (vehicle) {
                 const nextServiceDate = new Date(vehicle.lastService);
-                nextServiceDate.setMonth(nextServiceDate.getMonth() + 6);
+                nextServiceDate.setMonth(nextServiceDate.getMonth() + 2);
 
                 const listItem = document.createElement('li');
                 listItem.textContent = `${vehicle.model} (${vehicle.plate}) - Próxima revisão: ${nextServiceDate.toLocaleDateString()}`;
