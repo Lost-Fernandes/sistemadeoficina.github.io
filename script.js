@@ -20,7 +20,7 @@ function checkForUpcomingService(vehicle) {
     const currentDate = new Date();
     const serviceDate = new Date(vehicle.lastService);
     const nextServiceDate = new Date(serviceDate);
-    nextServiceDate.setMonth(nextServiceDate.getMonth() + 6);
+    nextServiceDate.setMonth(nextServiceDate.getMonth() + 2);
 
     const timeDiff = nextServiceDate - currentDate;
     const daysUntilService = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
